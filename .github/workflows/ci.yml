@@ -2,13 +2,13 @@ name: ci test
 on: [push]
 
 jobs:
-  py37:
+  py38:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: 3.8
     - name: Test - print python version
       run: python --version
     - name: Test - ls
@@ -18,5 +18,9 @@ jobs:
         python -c 'print(7*8)'
         cat .github/workflows/ci.yml
     - name: Install dependencies
-      run: exit 1
+      run: |
+        pip install numpy scipy pytest
+        python -c 'import numpy; print(f"{numpy.__version__=}")'
+        python -c 'import scipy; print(f"{scipy.__version__=}")'
+        python -c 'import pytest; print(f"{pytest.__version__=}")'
       
