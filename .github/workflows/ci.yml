@@ -9,5 +9,10 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: 3.7
-    - run: python --version
-    
+    - name: Test - print python version
+      run: python --version
+    - name: Test - ls
+      run: |
+        echo ~
+        ls -la
+        python -c print(7*8)
