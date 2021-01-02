@@ -2,13 +2,13 @@ name: ci test
 on: [push]
 
 jobs:
-  py38:
+  py39:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.9
     - name: Test - print python version
       run: python --version
     - name: Test - ls
