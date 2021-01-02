@@ -6,7 +6,15 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        py: [ 3.8, 3.9]
+        py: [3.8, 3.9]
+      
+        include:
+          - py: 3.8
+            npver: 1.19.4
+          - py: 3.9
+            npver: 1.19.4
+    
+    
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -14,15 +22,9 @@ jobs:
         python-version: ${{ matrix.py }}
     - name: Test - print python version
       run: python --version
-    - name: Test - ls
-      run: |
-        echo ~
-        ls -la
-        python -c 'print(7*8)'
-        cat .github/workflows/ci.yml
     - name: Install dependencies
       run: |
-        pip install numpy scipy pytest
+        pip install numpy==${{ npver }} scipy pytest
         python -c 'import numpy; print(f"{numpy.__version__=}")'
         python -c 'import scipy; print(f"{scipy.__version__=}")'
         python -c 'import pytest; print(f"{pytest.__version__=}")'
