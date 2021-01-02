@@ -11,8 +11,10 @@ jobs:
         include:
           - py: 3.8
             npver: 1.19.4
+            scipy: true
           - py: 3.9
             npver: 1.19.4
+            scipy: false
     
     
     steps:
@@ -24,8 +26,10 @@ jobs:
       run: python --version
     - name: Install dependencies
       run: |
-        pip install numpy==${{ matrix.npver }} scipy pytest
+        pip install numpy==${{ matrix.npver }}
         python -c 'import numpy; print(f"{numpy.__version__=}")'
+    - if: ${{ matrix.scipy }}
+      run: |
+        pip install scipy
         python -c 'import scipy; print(f"{scipy.__version__=}")'
-        python -c 'import pytest; print(f"{pytest.__version__=}")'
       
