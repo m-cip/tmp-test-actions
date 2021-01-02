@@ -16,3 +16,4 @@ jobs:
         echo ~
         ls -la
         python -c 'print(7*8)'
+        cat .github/workflows/ci.yml
