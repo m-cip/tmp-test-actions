@@ -48,8 +48,14 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./zz.txt
-      - run: ls zz.txt
+          path: ./dist
+      - run: ls dist
+      
+      - run: |
+          cd dist
+          readlink -f .
+          
+      - run: readlink -f .
     
       - name: Test - print python version
         run: python --version
