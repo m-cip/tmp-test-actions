@@ -2,18 +2,31 @@ name: CI
 on: [push]
 
 jobs:
+
+  build:
+    name: test build
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: echo aabb > z.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: ./z.txt
+
   py39:
     runs-on: ubuntu-20.04
+    needs: build
     strategy:
       matrix:
         py: [3.8, 3.9]
       
         include:
           - py: 3.8
-            npver: 1.19.4
+            deps: scipy==1.19.4 numpy pytest
             scipy: true
           - py: 3.9
-            npver: 1.19.4
+            deps: scipy numpy pytest
             scipy: false
     
     
@@ -22,14 +35,21 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.py }}
+    - name: Load artifact
+      uses: actions/download-artifact@v2
+       with:
+         name: build
+         path: ./zz.txt
+    - run: cat zz.txt
+    
     - name: Test - print python version
       run: python --version
     - name: Install dependencies
       run: |
-        pip install numpy==${{ matrix.npver }}
+        pip install ${{ matrix.deps }}
         python -c 'import numpy; print(f"{numpy.__version__=}")'
+        python -c 'import scipy; print(f"{scipy.__version__=}")'
     - if: ${{ matrix.scipy }}
       run: |
-        pip install scipy
-        python -c 'import scipy; print(f"{scipy.__version__=}")'
+        echo scipy is ${{ matrix.scipy }}
       
