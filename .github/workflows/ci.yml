@@ -48,7 +48,7 @@ jobs:
     #    name: build
     #    path: ./zz.txt
     - run: ls ./dist
-    - run cat ./dist/z.txt
+    - run: cat ./dist/z.txt
     
     - name: Test - print python version
       run: python --version
