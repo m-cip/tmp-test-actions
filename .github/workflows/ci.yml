@@ -23,7 +23,7 @@ jobs:
     name: setup for python ${{ matrix.py }} ${{ matrix.deps }}
     strategy:
       matrix:
-        py: [3.8, 3.9]
+        # py: [3.8, 3.9]
       
         include:
           - py: 3.8
