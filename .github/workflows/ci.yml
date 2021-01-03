@@ -58,7 +58,7 @@ jobs:
         pip install ${{ matrix.deps }}
         # python -c 'import numpy; print(f"{numpy.__version__=}")'
         # python -c 'import scipy; print(f"{scipy.__version__=}")'
-    - if: ${{ matrix.scipy }}
+    - if: ${{ !matrix.scipy }}
       run: |
         echo scipy is ${{ matrix.scipy }}
       
