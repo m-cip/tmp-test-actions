@@ -9,6 +9,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: echo aabb > z.txt
+    - run: cat z.txt
+    - run: readlink -f ./z.txt
     - uses: actions/upload-artifact@v2
       with:
         name: build
@@ -40,7 +42,7 @@ jobs:
       with:
         name: build
         path: ./zz.txt
-    - run: cat zz.txt
+    - run: ls zz.txt
     
     - name: Test - print python version
       run: python --version
