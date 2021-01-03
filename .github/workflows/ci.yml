@@ -20,6 +20,7 @@ jobs:
   py39:
     runs-on: ubuntu-20.04
     needs: build
+    name: setup for python ${{ matrix.py }}
     strategy:
       matrix:
         py: [3.8, 3.9]
