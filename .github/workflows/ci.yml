@@ -8,14 +8,15 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
-    - run: echo aabb > z.txt
-    - run: cat z.txt
-    - run: readlink -f ./z.txt
-    - uses: actions/upload-artifact@v2
+    - run: mkdir dist
+    - run: echo aabb > dist/z.txt
+    - run: cat dist/z.txt
+    - run: readlink -f dist
+    - uses: actions/cache@v2
       with:
-        name: build
-        path: ./z.txt
-        retention-days: 1
+        name: dist
+        path: ./dist
+ 
 
   test:
     runs-on: ubuntu-20.04
@@ -23,7 +24,6 @@ jobs:
     name: setup for python ${{ matrix.py }}
     strategy:
       matrix:
-        py: [3.8, 3.9]
       
         include:
           - py: 3.8
@@ -42,20 +42,21 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.py }}
-    - name: Load artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: build
-        path: ./zz.txt
-    - run: ls zz.txt
+    #- name: Load artifact
+    #  uses: actions/download-artifact@v2
+    #  with:
+    #    name: build
+    #    path: ./zz.txt
+    - run: ls ./dist
+    - run cat ./dist/z.txt
     
     - name: Test - print python version
       run: python --version
     - name: Install dependencies
       run: |
         pip install ${{ matrix.deps }}
-        python -c 'import numpy; print(f"{numpy.__version__=}")'
-        python -c 'import scipy; print(f"{scipy.__version__=}")'
+        # python -c 'import numpy; print(f"{numpy.__version__=}")'
+        # python -c 'import scipy; print(f"{scipy.__version__=}")'
     - if: ${{ matrix.scipy }}
       run: |
         echo scipy is ${{ matrix.scipy }}
