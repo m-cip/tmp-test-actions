@@ -15,6 +15,7 @@ jobs:
       with:
         name: build
         path: ./z.txt
+        retention-days: 1
 
   py39:
     runs-on: ubuntu-20.04
