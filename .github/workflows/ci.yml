@@ -17,7 +17,7 @@ jobs:
         path: ./z.txt
         retention-days: 1
 
-  py39:
+  test:
     runs-on: ubuntu-20.04
     needs: build
     name: setup for python ${{ matrix.py }}
@@ -32,6 +32,9 @@ jobs:
           - py: 3.9
             deps: scipy numpy pytest
             scipy: false
+          - py: 3.8
+            deps: numpy
+            scipy: true
     
     
     steps:
