@@ -26,7 +26,7 @@ jobs:
       
         include:
           - py: 3.8
-            deps: scipy==1.19.4 numpy pytest
+            deps: numpy==1.19.4 scipy pytest
             scipy: true
           - py: 3.9
             deps: scipy numpy pytest
