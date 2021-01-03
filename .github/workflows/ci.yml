@@ -20,7 +20,8 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     needs: build
-    name: > setup for python ${{ matrix.py }} with the following 
+    name: >
+      setup for python ${{ matrix.py }} with the following 
       dependencies ${{ matrix.deps }}
     strategy:
       matrix:
