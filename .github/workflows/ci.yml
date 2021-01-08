@@ -46,7 +46,9 @@ jobs:
           path: ./dist
       - run: ls dist
       
-      - run: python -c "print('${{ matrix.text-flag }}')"
+      - run: |
+          python -W error::Warning \
+            -c "print('${{ matrix.text-flag }}')"
       
       - run: |
           cd dist
