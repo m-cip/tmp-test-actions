@@ -25,18 +25,13 @@ jobs:
       dependencies ${{ matrix.deps }}
     strategy:
       matrix:
-        # py: [3.8, 3.9]
+        # py: [3.9]
       
         include:
-          - py: 3.8
-            deps: numpy==1.19.4 scipy pytest
-            scipy: true
           - py: 3.9
             deps: scipy numpy pytest
             scipy: false
-          - py: 3.8
-            deps: numpy
-            scipy: true
+            text-flag: 'abc'
     
     
     steps:
@@ -51,14 +46,15 @@ jobs:
           path: ./dist
       - run: ls dist
       
+      - run: echo "${{ matrix.text-flag }}"
+      
       - run: |
           cd dist
           readlink -f .
-          
-      - run: readlink -f .
-    
+            
       - name: Test - print python version
         run: python --version
+      
       - name: Install dependencies
         run: |
           pip install ${{ matrix.deps }}
